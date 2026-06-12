@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stocks Informations</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="StartPageLoading">
+      <div class="loader">
+        <div></div>
+
+        <div></div>
+
+        <div></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="addStockToPortfolio">
+        <div class="con">
+          <span id="exit">X</span>
+          <i class="fa-solid fa-chart-area"></i>
+          <p>Podaj ilosc posiadanych akcji:</p>
+          <input type="number" min="0.01" id="StockUserInput" />
+          <button id="confir">Potwierdz</button>
+        </div>
+      </div>
+      <div class="ContainerRight">
+        <header>
+          <div class="header__left">
+            <span id="home" class="active">Overview</span><span>/</span
+            ><span id="stoc">Stock</span>
+          </div>
+          <div class="header__right">
+            <div class="header__search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search...(symbol)"
+              />
+              <div class="searchHints"></div>
+            </div>
+          </div>
+        </header>
+
+        <main id="homePage" class="page active">
+          <div class="main__header" id="mh"></div>
+
+          <section class="search_site">
+            <section class="main_favorite">
+              <div class="main_fav_header">
+                <h2>Shares added to favorites</h2>
+                <i class="fa-regular fa-bookmark"></i>
+              </div>
+              <div class="main_fav_main">
+                <p>You haven't added any stocks to your favorites</p>
+              </div>
+            </section>
+
+            <section class="interactive-i-valuable">
+              <div class="UserPortfolio">
+                <div class="user_portfolio_header">
+                  <h2>Your Holdings</h2>
+                  <p id="userHoldings">$0.00</p>
+                  <span>Total value</span>
+                  <span id="userTotalChange">+0%</span>
+                </div>
+                <div class="user_portfolio_main">
+                  <div class="portfolio_tile">
+                    <div class="left">
+                      <p>Company</p>
+                    </div>
+                    <div class="center">
+                      <p>Shares price</p>
+                    </div>
+                    <div class="right">
+                      <p>Change</p>
+                    </div>
+                  </div>
+                  <div class="portfolio_tile" id="portfoliDefault">
+                    <p>No Stock added to Your Holdings</p>
+                  </div>
+                </div>
+              </div>
+
+              <section class="search_valuable"></section>
+            </section>
+          </section>
+        </main>
+
+        <!-- a tu ogolnie wyswietlane akcje -->
+
+        <!-- tu sa informacje o poszeczuglnej akcji -->
+        <main id="stockInformations" class="page">
+          <div class="loading">
+            <div class="loader">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+
+          <div class="main__header" id="mh"></div>
+          <div class="companyInfo">
+            <div class="companyInfo__left">
+              <div class="logo">
+                <!-- <img src="" alt="" class="logoImg"> -->
+              </div>
+              <div class="companyDetals">
+                <h2 id="companyName">Apple</h2>
+                <span><span id="companyDes"></span> innovation</span>
+                <span id="price">$4.5</span>
+              </div>
+            </div>
+            <div class="companyInfo__right">
+              <div class="buttons">
+                <button id="addToFavorite">
+                  <i class="fa-solid fa-plus"></i>
+                  <i class="fa-regular fa-star favDec"></i>
+                  Add to favorites
+                </button>
+                <button id="buy">Add to holdings</button>
+              </div>
+            </div>
+          </div>
+
+          <section class="main_down">
+            <section class="main_left">
+              <section class="left_chart">
+                <div class="chart_top">
+                  <div class="chart_top-left">
+                    <div class="companyInfo_chart">
+                      <div class="logo">
+                        <!-- <img src="" alt="" class="logoImg"> -->
+                      </div>
+                      <div class="companyDetals">
+                        <p style="font-weight: 600" id="chartCompanyName">
+                          Apple Inc
+                          <span style="font-weight: 400" id="chartCompanyTicker"
+                            >APPL</span
+                          >
+                        </p>
+                        <p
+                          style="font-weight: 600; margin: 5px"
+                          id="chartCompanyPrice"
+                        >
+                          $457.25
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="chart_top-right">
+                    <div class="chart_btns">
+                      <button data-range="1d" id="1d">1D</button>
+                      <button data-range="7d" id="7d">7D</button>
+                      <button data-range="1m" id="1m">1M</button>
+                      <button data-range="6m" id="6m" class="active">6M</button>
+                      <button data-range="1y" id="1y">1Y</button>
+                      <button data-range="5y" id="5y">5Y</button>
+                      <button data-range="all" id="all">ALL</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="chart_botom">
+                  <div id="chartLoading" style="display: none">
+                    Ładowanie wykresu...
+                  </div>
+                  <canvas id="stockChart"> </canvas>
+                </div>
+              </section>
+              <section class="left_favorite">
+                <div class="left_favourite_header">
+                  <div class="fav_header_left">
+                    <p>Stock Comparison</p>
+                    <span
+                      >Compare <span id="fav_h_l"></span> performance against
+                      other leading stocks.</span
+                    >
+                  </div>
+                </div>
+                <div class="left_favourtie_main"></div>
+              </section>
+            </section>
+
+            <section class="main_right">
+              <div class="info_details-head">
+                <h2>Details Stock</h2>
+                <p>
+                  <span id="infoDetailsHeadCompanyName"></span> (<span
+                    id="infoDetailsHeadCompanyTicker"
+                  ></span
+                  >) detailed info down there
+                </p>
+              </div>
+              <section class="right_detailed">
+                <div class="detailed_company" id="detailed_info">
+                  <p>Company:</p>
+                  <p class="detailed_info-p" id="DetailedCompName">
+                    Apple Inc. (AAPL)
+                  </p>
+                </div>
+                <div class="detailed_c-supply" id="detailed_info">
+                  <p>Country:</p>
+                  <p class="detailed_info-p" id="DetailedCountry">
+                    $425,525.00
+                  </p>
+                </div>
+                <div class="detailed_fdmc" id="detailed_info">
+                  <p>Industry:</p>
+                  <p class="detailed_info-p" id="DetailedIndustry">
+                    $652,524.00
+                  </p>
+                </div>
+                <div class="detailed_current-price" id="detailed_info">
+                  <p>Current Price:</p>
+                  <p class="detailed_info-p" id="DetailedCompCurrentPrice">
+                    $454,68.00
+                  </p>
+                </div>
+                <div class="detailed_ticker" id="detailed_info">
+                  <p>Ticker:</p>
+                  <p class="detailed_info-p" id="DetailedCompTicker">AAPL</p>
+                </div>
+                <div class="detailed_change" id="detailed_info">
+                  <p>Change:</p>
+                  <p class="detailed_info-p" id="DetailedChange">+2.55%</p>
+                </div>
+                <div class="detailed_market-cap" id="detailed_info">
+                  <p>Market Cap:</p>
+                  <p class="detailed_info-p" id="DetailedMarketCap">
+                    $542,525.00
+                  </p>
+                </div>
+                <div class="detailed_trend" id="detailed_info">
+                  <p>Trend:</p>
+                  <p class="detailed_info-p" id="DetailedTrend">+56.2%</p>
+                </div>
+                <div class="detailed_pe-ratio" id="detailed_info">
+                  <p>P/E Ratio:</p>
+                  <p class="detailed_info-p" id="DetailedRatio">28.4</p>
+                </div>
+              </section>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
